@@ -1,8 +1,9 @@
 gulp-riot-css
 =============
 # 项目起因
-    riot模板中样式内容使用时会直接写入body的style中,使用的是全局属性,非常容易造成污染.
-    解决方式非常简单,riot渲染模板后,会在渲染盒子上增加属性riot-tag,所以我们只要把style放在[riot-tag="model-name"]中即可.
+    riot模板中css样式会被直接添加到head中,容易造成污染.
+    解决方式非常简单,riot渲染模板后,会在渲染盒子上增加属性riot-tag
+    所以我们只要把css样式放在[riot-tag="**"]中即可.
 
 # 项目说明
 * 拆分riot中sytle标签,包裹在[riot-tag=**]标签中输出
