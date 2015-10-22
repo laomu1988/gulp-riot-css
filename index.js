@@ -18,7 +18,7 @@ module.exports = function (opt) {
     opt.css = opt.css || 'riot_tag.scss';
     opt.tab = opt.tag || '  ';
     opt.newLine = gutil.linefeed;
-    opt.note = opt.note || '/**这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译*/' + opt.newLine;
+    opt.note = '/**' + (opt.note || '这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译') + '*/' + opt.newLine;
     var js = opt.note, css = opt.note, backFile = null;
 
     function SpliteFile(file) {
