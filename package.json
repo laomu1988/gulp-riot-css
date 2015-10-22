@@ -1,0 +1,33 @@
+{
+  "name": "gulp-riot-css",
+  "version": "0.1.1",
+  "description": "将riot模板中css样式使用[riot-tag=**]包裹并并分别输出css和js到一个单一文件",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "gulp-util": "~2.2.14",
+    "riot": "^2.2.4",
+    "through2": "~0.4.1"
+  },
+  "devDependencies": {
+    "event-stream": "~3.1.0",
+    "gulp": "~3.5.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/outluch/gulp-rev-hash.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "riot",
+    "gulp-riot"
+  ],
+  "author": {
+    "name": "muzhilong",
+    "email": "laomu1988@qq.com"
+  },
+  "license": "MIT",
+  "_npmVersion": "1.3.14",
+  "directories": {},
+  "readme": "ERROR: No README data found!"
+}
