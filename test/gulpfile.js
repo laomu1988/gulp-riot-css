@@ -3,7 +3,7 @@ var gulp_css = require('../index');
 
 gulp.task('gulp_css', function () {
     gulp.src(['./*.html'])
-        .pipe(gulp_css({css: 'css/riot_tag.css', js: 'js/riot_tag.js'}))
+        .pipe(gulp_css({css: 'css/riot_tag.scss', js: 'js/riot_tag.js'}))
         .pipe(gulp.dest('./output'));
 });
 

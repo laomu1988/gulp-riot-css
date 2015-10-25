@@ -15,7 +15,7 @@ var compile = require('riot').compile;
 module.exports = function (opt) {
     opt = opt || {};
     opt.js = opt.js || 'riot_tag.js';
-    opt.css = opt.css || 'riot_tag.scss';
+    opt.css = opt.css || 'riot_tag.css';
     opt.tab = opt.tag || '  ';
     opt.newLine = gutil.linefeed;
     opt.note = '/**' + (opt.note || '这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译') + '*/' + opt.newLine;
@@ -38,7 +38,17 @@ module.exports = function (opt) {
 
     /** 为css增加外围标签*/
     function styleAddTag(style, tag) {
+        var cssExt = path.extname(opt.css).substring(1).toLowerCase();
+        var isCss = true;
+        if (cssExt === 'less' || cssExt === 'scss' || cssExt === 'sass') {
+            isCss = false;
+        }
         tag = '[riot-tag=' + tag + '] ';
+
+        if (!isCss) {
+            return tag + '{\n' + style.trim() + '\n}\n';
+        }
+
         style += '';
         style = style.trim();
         style = style.replace(/([^\{]*)\{([^\}]*)\}*/g, function (a, selector, style, d) {

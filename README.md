@@ -1,5 +1,8 @@
 gulp-riot-css
 =============
+# 更新
+* 0.1.5 根据css扩展名(sass,scss,less) 直接将style用标签包裹,便于之后sass或less编译
+
 # 项目起因
     riot模板中css样式会被直接添加到head中,容易造成污染.
     解决方式非常简单,riot渲染模板后,会在渲染盒子上增加属性riot-tag
@@ -27,10 +30,9 @@ gulp.task('default', ["riot_css"]);
 
 ## 参数说明
 * 参数 类型  默认值 说明
-* css string 'riot_tag.css' 指定生成的css存放位置及文件名
+* css string 'riot_tag.css' 指定生成的css存放位置及文件名,扩展名为scss或sass或less时,直接将style包裹在属性标签内部
 * js string 'riot_tag.js' 指定生成的js存放位置及文件名
 * note string '这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译'  文件顶部注释
-* tab string '  ' css tab标签(默认两个空格)
 
 ## 示例
 ```html

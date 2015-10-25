@@ -1,17 +1,20 @@
 <test>
     <style>
-        h1 {
-            color: green;
-        }
-
-        .content {
-            color: blue;
+        .test{
+            .h1 {
+                color: green;
+            }
+            .content {
+                color: blue;
+            }
         }
     </style>
-    <h1>This is a test file</h1>
+    <div class="test">
+        <h1>This is a test file</h1>
 
-    <div class="content">{content}</div>
-    <script>
-        this.content = 'This is content;';
-    </script>
+        <div class="content">{content}</div>
+        <script>
+            this.content = 'This is content;';
+        </script>
+    </div>
 </test>
