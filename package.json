@@ -1,6 +1,6 @@
 {
   "name": "gulp-riot-css",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "将riot模板中css样式使用[riot-tag=**]包裹并并分别输出css和js到一个单一文件",
   "main": "index.js",
   "dependencies": {
@@ -28,5 +28,16 @@
     "email": "laomu1988@qq.com"
   },
   "license": "MIT",
-  "_npmVersion": "1.3.14"
+  "_npmVersion": "1.3.14",
+  "readme": "gulp-riot-css\r\n=============\r\n# 更新\r\n* 0.1.5 根据css扩展名(sass,scss,less) 直接将style用标签包裹,便于之后sass或less编译\r\n\r\n# 项目起因\r\n    riot模板中css样式会被直接添加到head中,容易造成污染.\r\n    解决方式非常简单,riot渲染模板后,会在渲染盒子上增加属性riot-tag\r\n    所以我们只要把css样式放在[riot-tag=\"**\"]中即可.\r\n\r\n# 项目说明\r\n* 拆分riot中sytle标签,包裹在[riot-tag=**]标签中输出\r\n* 分别生成单独的scs和js文件,可以分别定义输出文件目录\r\n* ie7已经支持属性选择器,riot使用h5和es5插件可以兼容到ie8\r\n\r\n# 使用方式\r\n```javascript\r\nvar gulp = require('gulp');\r\nvar riot_css = require('gulp-riot-css');\r\n\r\ngulp.task('riot_css', function () {\r\n    gulp.src(['./*.html'])\r\n        .pipe(riot_css({css: 'css/riot_tag.css', js: 'js/riot_tag.js'}))\r\n        .pipe(gulp.dest('./output'));\r\n});\r\n\r\ngulp.task('default', [\"riot_css\"]);\r\n\r\n```\r\n\r\n## 参数说明\r\n* 参数 类型  默认值 说明\r\n* css string 'riot_tag.css' 指定生成的css存放位置及文件名,扩展名为scss或sass或less时,直接将style包裹在属性标签内部\r\n* js string 'riot_tag.js' 指定生成的js存放位置及文件名\r\n* note string '这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译'  文件顶部注释\r\n\r\n## 示例\r\n```html\r\n<test>\r\n    <style>\r\n        h1 {\r\n            color: green;\r\n        }\r\n        .content {\r\n            color: blue;\r\n        }\r\n    </style>\r\n    <h1>This is a test file</h1>\r\n    <div class=\"content\">{content}</div>\r\n    <script>\r\n        this.content = 'This is content;';\r\n    </script>\r\n</test>\r\n```\r\n将生成\r\n```css\r\n/**这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译*/\r\n[riot-tag=test] h1\r\n{\r\n  color: green;\r\n}\r\n[riot-tag=test] .content\r\n{\r\n  color: blue;\r\n}\r\n```\r\n和\r\n```javascript\r\n/**这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译*/\r\nriot.tag('test', '<h1>This is a test file</h1> <div class=\"content\">{content}</div>', function(opts) {\r\n        this.content = 'This is content;';\r\n    \r\n});\r\n```\r\n",
+  "readmeFilename": "README.md",
+  "gitHead": "7738a1375c73f95a87805e3e44f419f917703060",
+  "bugs": {
+    "url": "https://github.com/laomu1988/gulp-riot-css/issues"
+  },
+  "homepage": "https://github.com/laomu1988/gulp-riot-css#readme",
+  "_id": "gulp-riot-css@0.1.5",
+  "scripts": {},
+  "_shasum": "f01fe4c7c2d214f210048d623efe0a6fa68c0951",
+  "_from": "gulp-riot-css@0.1.5"
 }

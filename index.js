@@ -38,6 +38,9 @@ module.exports = function (opt) {
 
     /** 为css增加外围标签*/
     function styleAddTag(style, tag) {
+        if (!style) {
+            return '';
+        }
         var cssExt = path.extname(opt.css).substring(1).toLowerCase();
         var isCss = true;
         if (cssExt === 'less' || cssExt === 'scss' || cssExt === 'sass') {
@@ -46,6 +49,7 @@ module.exports = function (opt) {
         tag = '[riot-tag=' + tag + '] ';
 
         if (!isCss) {
+            style = style.replace(/\.__self(?=\W)/g, '&');
             return tag + '{\n' + style.trim() + '\n}\n';
         }
 
