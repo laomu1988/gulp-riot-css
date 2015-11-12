@@ -1,18 +1,18 @@
-/**这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译*/
-[riot-tag=test] h1
+/** ----- created by gulp-riot-css -----*/
+[riot-tag=test] h1,test h1
 {
   color: green;
 }
-[riot-tag=test] .content
+[riot-tag=test] .content,test .content
 {
   color: blue;
 }
-[riot-tag=test2] h1
+[riot-tag=test2] h1,test2 h1
 {
   color: blue;
   background: yellow;
 }
-[riot-tag=test2] .content
+[riot-tag=test2] .content,test2 .content
 {
   color: green;
   background: steelblue;

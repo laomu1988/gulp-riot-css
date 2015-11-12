@@ -18,7 +18,7 @@ module.exports = function (opt) {
     opt.css = opt.css || 'riot_tag.css';
     opt.tab = opt.tag || '  ';
     opt.newLine = gutil.linefeed;
-    opt.note = '/**' + (opt.note || '这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译') + '*/' + opt.newLine;
+    opt.note = '/**' + (opt.note || ' ----- created by gulp-riot-css -----') + '*/' + opt.newLine;
     var js = opt.note, css = opt.note, backFile = null;
 
     function SpliteFile(file) {
@@ -46,15 +46,17 @@ module.exports = function (opt) {
         if (cssExt === 'less' || cssExt === 'scss' || cssExt === 'sass') {
             isCss = false;
         }
-        tag = '[riot-tag=' + tag + '] ';
+        var attrTag = '[riot-tag=' + tag + '] ';
 
         if (!isCss) {
             style = style.replace(/\.__self(?=\W)/g, '&');
-            return tag + '{\n' + style.trim() + '\n}\n';
+            style = style.replace(/\.__root(?=\W)/g, '@at-root');
+            return attrTag + ', ' + tag + ' {\n' + style.trim() + '\n}\n';
         }
 
         style += '';
         style = style.trim();
+        // 匹配选择器
         style = style.replace(/([^\{]*)\{([^\}]*)\}*/g, function (a, selector, style, d) {
             selector = selector.replace(';', '');
             var selectors = selector.split(',');
@@ -62,9 +64,10 @@ module.exports = function (opt) {
             for (var i = 0; i < selectors.length; i++) {
                 var s = selectors[i].trim();
                 if (s) {
-                    selector += (selector ? ', ' : '' ) + tag + s;
+                    selector += (selector ? ', ' : '' ) + attrTag + s + ',' + tag + ' ' + s;
                 }
             }
+            console.log(selector);
             // 格式化
             style = style.trim();
             style = style.replace(/[\r\n]+\s*/g, '\n' + opt.tab);

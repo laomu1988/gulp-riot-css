@@ -1,6 +1,11 @@
 gulp-riot-css
 =============
 # 更新
+### 0.1.9
+* 修复riot升级后无法编译错误(固定版本为2.2.4)
+* 样式增加节点名称选择器
+### 0.1.8
+* 生成less和scss时,将.__root替换为@at-root(跳出选择器范围)
 ### 0.1.7
 * 生成less和scss时,将.__self替换为&(指定本节点属性)
 ### 0.1.6
@@ -65,18 +70,18 @@ gulp.task('default', ["riot_css"]);
 将生成
 ```css
 /**这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译*/
-[riot-tag=test] h1
+[riot-tag=test] h1,test h1
 {
   color: green;
 }
-[riot-tag=test] .content
+[riot-tag=test] .content,test .content
 {
   color: blue;
 }
 ```
 和
 ```javascript
-/**这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译*/
+/** ----- created by gulp-riot-css -----*/
 riot.tag('test', '<h1>This is a test file</h1> <div class="content">{content}</div>', function(opts) {
         this.content = 'This is content;';
 
