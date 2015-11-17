@@ -15,7 +15,8 @@ var compile = require('riot').compile;
 module.exports = function (opt) {
     opt = opt || {};
     opt.js = opt.js || 'riot_tag.js';
-    opt.css = opt.css || 'riot_tag.css';
+    opt.css = opt.css || '';
+    opt.styleSelectMode = opt.styleSelectMode || 'all';// 生成style的模式: all两种模式选择器都使用 attr只生成属性选择器格式 tagName 只生成标签名格式
     opt.tab = opt.tag || '  ';
     opt.newLine = gutil.linefeed;
     opt.note = '/**' + (opt.note || ' ----- created by gulp-riot-css -----') + '*/' + opt.newLine;
@@ -31,8 +32,14 @@ module.exports = function (opt) {
         }
         // console.log('tagName:', tagName);
         var style = $('style');
-        css += styleAddTag(style.html(), tagName) + opt.newLine;
-        style.remove();
+        var style_addTag = styleAddTag(style.html(), tagName);
+        if(opt.css){
+            css += styleAddTag(style.html(), tagName) + opt.newLine;
+            style.remove();
+        }
+        else{
+            style.html(style_addTag);
+        }
         js += compile($.html()) + opt.newLine;
     }
 
@@ -101,17 +108,16 @@ module.exports = function (opt) {
             cb();
             return;
         }
-
         var jsFile = backFile.clone({contents: false});
         jsFile.path = path.join(backFile.base, opt.js);
         jsFile.contents = new Buffer(js);
         this.push(jsFile);
-
-        var cssFile = backFile.clone({content: false});
-        cssFile.contents = new Buffer(css);
-        cssFile.path = path.join(backFile.base, opt.css);
-        this.push(cssFile);
-
+        if (opt.css) {
+            var cssFile = backFile.clone({content: false});
+            cssFile.contents = new Buffer(css);
+            cssFile.path = path.join(backFile.base, opt.css);
+            this.push(cssFile);
+        }
         cb();
     }
 

@@ -7,4 +7,11 @@ gulp.task('gulp_css', function () {
         .pipe(gulp.dest('./output'));
 });
 
-gulp.task('default', ["gulp_css"]);
+gulp.task('gulp_riotjs', function () {
+    gulp.src(['./*.html'])
+        .pipe(gulp_css({js: 'js/riot_tag.js'}))
+        .pipe(gulp.dest('./output_js'));
+});
+
+
+gulp.task('default', ['gulp_css','gulp_riotjs']);

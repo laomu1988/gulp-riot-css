@@ -1,8 +1,8 @@
 gulp-riot-css
 =============
 
-
 ## 版本更新
+* 0.2.0 当没有css路径参数时,style样式保存到tag内部,不单独生成css文件
 * 0.1.9 修复riot升级后无法编译错误(固定版本为2.2.4)
 * 0.1.9 样式增加节点名称选择器
 * 0.1.8 生成less和scss时,将.__root替换为@at-root(跳出选择器范围)
@@ -42,9 +42,9 @@ gulp.task('default', ["riot_css"]);
 
 ## 参数说明
 * 参数 类型  默认值 说明
-* css string 'riot_tag.css' 指定生成的css存放位置及文件名,扩展名为scss或sass或less时,直接将style包裹在属性标签内部
 * js string 'riot_tag.js' 指定生成的js存放位置及文件名
-* note string '这是gulp-riot-model根据riot模板生成的文件.如需修改,请修改riot模板后重新编译'  文件顶部注释
+* css string '' 指定生成的css存放位置及文件名,扩展名为scss或sass或less时,直接将style包裹在属性标签内部,
+                当为空时,则不单独生成style,直接将style包含在tag模板内
 
 ## 示例
 ```html
