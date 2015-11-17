@@ -71,16 +71,25 @@ module.exports = function (opt) {
             for (var i = 0; i < selectors.length; i++) {
                 var s = selectors[i].trim();
                 if (s) {
+                    // console.log('selector: ',s);
+                    if(s == '.__self'){
+                        s = '';
+                    }else if(s.indexOf('.__root') >= 0){
+                        s = s.replace('.__root','');
+                        s = s.trim();
+                        selector += s;
+                        continue;
+                    }
                     selector += (selector ? ', ' : '' ) + attrTag + s + ',' + tag + ' ' + s;
+
                 }
             }
-            console.log(selector);
+            //console.log(selector);
             // 格式化
             style = style.trim();
             style = style.replace(/[\r\n]+\s*/g, '\n' + opt.tab);
             return selector + '\n{\n' + opt.tab + style.trim() + '\n}\n';
         });
-
         return style.trim();
     }
 

@@ -1,4 +1,12 @@
 /** ----- created by gulp-riot-css -----*/
+[riot-tag=test] ,test 
+{
+  display: block
+}
+body
+{
+  background: #fff;
+}
 [riot-tag=test] h1,test h1
 {
   color: green;
