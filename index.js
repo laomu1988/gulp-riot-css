@@ -14,15 +14,15 @@ var compile = require('riot').compile;
  * */
 module.exports = function (opt) {
     opt = opt || {};
-    opt.js = opt.js || 'riot_tag.js';
+    opt.js = opt.js || '';
     opt.css = opt.css || '';
-    opt.styleSelectMode = opt.styleSelectMode || 'all';// 生成style的模式: all两种模式选择器都使用 attr只生成属性选择器格式 tagName 只生成标签名格式
+    opt.define = opt.define || false;// 是否使用define标签包裹js
     opt.tab = opt.tag || '  ';
     opt.newLine = gutil.linefeed;
     opt.note = '/**' + (opt.note || ' ----- created by gulp-riot-css -----') + '*/' + opt.newLine;
     var js = opt.note, css = opt.note, backFile = null;
 
-    function SpliteFile(file) {
+    function SpliteFile(file, that) {
         var $ = cheerio.load(String(file.contents) + '', {decodeEntities: false});
         var root = $.root();
         var children = $.root().children();
@@ -33,14 +33,23 @@ module.exports = function (opt) {
         // console.log('tagName:', tagName);
         var style = $('style');
         var style_addTag = styleAddTag(style.html(), tagName);
-        if(opt.css){
+        if (opt.css) {
             css += styleAddTag(style.html(), tagName) + opt.newLine;
             style.remove();
         }
-        else{
+        else {
             style.html(style_addTag);
         }
-        js += compile($.html()) + opt.newLine;
+        var tempJs = compile($.html()) + opt.newLine;
+        if (typeof opt.define == 'string') {
+            tempJs = 'define("' + opt.define + tagName + '",function(){' + opt.newLine + tempJs + '});';
+        }
+        if (opt.js) {
+            js += tempJs;
+        }
+        else {
+            pushFile(tagName + '.js', tempJs, that);
+        }
     }
 
     /** 为css增加外围标签*/
@@ -72,16 +81,18 @@ module.exports = function (opt) {
                 var s = selectors[i].trim();
                 if (s) {
                     // console.log('selector: ',s);
-                    if(s == '.__self'){
-                        s = '';
-                    }else if(s.indexOf('.__root') >= 0){
-                        s = s.replace('.__root','');
+                    if (s.indexOf('.__self') >= 0) {
+                        s = s.replace('.__self', '');
+                    }
+                    s = s.trim();
+                    if (s.indexOf('.__root') >= 0) {
+                        s = s.replace('.__root', '');
                         s = s.trim();
                         selector += s;
                         continue;
                     }
                     selector += (selector ? ', ' : '' ) + attrTag + s + ',' + tag + ' ' + s;
-
+                    selector = selector.replace(/\s+\:/g, ':');
                 }
             }
             //console.log(selector);
@@ -106,7 +117,7 @@ module.exports = function (opt) {
             return;
         }
         backFile = file;
-        SpliteFile(file);
+        SpliteFile(file, this);
         cb();
     }
 
@@ -117,17 +128,23 @@ module.exports = function (opt) {
             cb();
             return;
         }
-        var jsFile = backFile.clone({contents: false});
-        jsFile.path = path.join(backFile.base, opt.js);
-        jsFile.contents = new Buffer(js);
-        this.push(jsFile);
+        if (opt.js) {
+            pushFile(opt.js, js, this);
+        }
         if (opt.css) {
-            var cssFile = backFile.clone({content: false});
-            cssFile.contents = new Buffer(css);
-            cssFile.path = path.join(backFile.base, opt.css);
-            this.push(cssFile);
+            pushFile(opt.css, css, this);
         }
         cb();
+    }
+
+    function pushFile(name, content, that) {
+        if (!that) {
+            console.error('未知文件流!');
+        }
+        var file = backFile.clone({contents: false});
+        file.path = path.join(backFile.base, name);
+        file.contents = new Buffer(content);
+        that.push(file);
     }
 
     return through.obj(bufferContents, endStream);

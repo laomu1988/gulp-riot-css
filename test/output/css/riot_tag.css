@@ -7,6 +7,10 @@ body
 {
   background: #fff;
 }
+[riot-tag=test]:hover h1,test:hover h1
+{
+  display: block;
+}
 [riot-tag=test] h1,test h1
 {
   color: green;

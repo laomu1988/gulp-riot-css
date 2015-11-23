@@ -1,6 +1,6 @@
 {
   "name": "gulp-riot-css",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "将riot模板中css样式使用[riot-tag=**]包裹并并分别输出css和js",
   "main": "index.js",
   "dependencies": {
