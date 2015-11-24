@@ -43,6 +43,8 @@ module.exports = function (opt) {
         var tempJs = compile($.html()) + opt.newLine;
         if (typeof opt.define == 'string') {
             tempJs = 'define("' + opt.define + tagName + '",function(){' + opt.newLine + tempJs + '});';
+        } else if (opt.define == true) {
+            tempJs = 'define(function(){' + opt.newLine + tempJs + '});';
         }
         if (opt.js) {
             js += tempJs;

@@ -2,7 +2,7 @@ gulp-riot-css
 =============
 
 ## 版本更新
-* 0.2.3 增加define参数，便于requirejs引用:define值为string类型，define时标签前缀
+* 0.2.3 增加define参数，便于requirejs引用:define值为string或true，为string时，define代表标签前缀，例如define='tag_',则生成define('tag_tagName',function(){});
 * 0.2.2 不指定js文件名时,将按照tag名称输出js文件
 * 0.2.1 style在tag内部时,可以包含.__root和.__self
 * 0.2.0 当没有css路径参数时,style样式保存到tag内部,不单独生成css文件
