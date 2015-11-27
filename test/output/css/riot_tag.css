@@ -1,31 +1,34 @@
 /** ----- created by gulp-riot-css -----*/
-[riot-tag=test] ,test 
-{
-  display: block
+[riot-tag=test], test {
+    display: block
 }
-body
-{
-  background: #fff;
+
+[riot-tag=test].inline, test.inline {
+    display: inline-block
 }
-[riot-tag=test]:hover h1,test:hover h1
-{
-  display: block;
+
+body {
+    background: #fff;
 }
-[riot-tag=test] h1,test h1
-{
-  color: green;
+
+[riot-tag=test]:hover h1, test:hover h1 {
+    display: block;
 }
-[riot-tag=test] .content,test .content
-{
-  color: blue;
+
+[riot-tag=test] h1, test h1 {
+    color: green;
 }
-[riot-tag=test2] h1,test2 h1
-{
-  color: blue;
-  background: yellow;
+
+[riot-tag=test] .content, test .content {
+    color: blue;
 }
-[riot-tag=test2] .content,test2 .content
-{
-  color: green;
-  background: steelblue;
+
+[riot-tag=test2] h1, test2 h1 {
+    color: blue;
+    background: yellow;
+}
+
+[riot-tag=test2] .content, test2 .content {
+    color: green;
+    background: steelblue;
 }

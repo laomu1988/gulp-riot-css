@@ -64,7 +64,7 @@ module.exports = function (opt) {
         if (cssExt === 'less' || cssExt === 'scss' || cssExt === 'sass') {
             isCss = false;
         }
-        var attrTag = '[riot-tag=' + tag + '] ';
+        var attrTag = '[riot-tag=' + tag + ']';
 
         if (!isCss) {
             style = style.replace(/\.__self(?=\W)/g, '&');
@@ -84,19 +84,25 @@ module.exports = function (opt) {
                 if (s) {
                     // console.log('selector: ',s);
                     if (s.indexOf('.__self') >= 0) {
-                        s = s.replace('.__self', '');
+                        var temp = s;
+                        s = temp.replace('.__self', attrTag);
+                        s += ',' + temp.replace('.__self', tag);
                     }
-                    s = s.trim();
+                    //s = s.trim();
                     if (s.indexOf('.__root') >= 0) {
                         s = s.replace('.__root', '');
-                        s = s.trim();
+                        //s = s.trim();
                         selector += s;
                         continue;
                     }
-                    selector += (selector ? ', ' : '' ) + attrTag + s + ',' + tag + ' ' + s;
-                    selector = selector.replace(/\s+\:/g, ':');
+                    if (s.indexOf(attrTag) == -1) {
+                        selector += (selector ? ', ' : '' ) + attrTag + ' ' + s + ',' + tag + ' ' + s;
+                    } else {
+                        selector += (selector ? ',' : '') + s;
+                    }
                 }
             }
+            selector = selector.replace(/\s+\:/g, ':');
             //console.log(selector);
             // 格式化
             style = style.trim();
