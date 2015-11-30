@@ -1,10 +1,7 @@
 gulp-riot-css
 =============
-## 注意
-* 需要node4.0版本及以上
 
 ## 版本更新
-* 0.2.5 支持es6（需要node4版本及以上）
 * 0.2.5 修改define生成方式，改为tag外部，不包裹riot.tag内容
 * 0.2.4 修复错误：多重条件选择时(例如：.__self.cls) 转换时不能增加空格
 * 0.2.3 增加define参数，便于requirejs引用:define值为string或true，为string时，define代表标签前缀，例如define='tag_',则生成define('tag_tagName',function(){});

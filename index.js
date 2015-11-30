@@ -43,9 +43,9 @@ module.exports = function (opt) {
         var tempJs = compile($.html()) + opt.newLine;
         if (typeof opt.define == 'string') {
             tempJs = tempJs + opt.newLine + 'define("' + opt.define + tagName + '",function(){});' + opt.newLine;
-        } else if (opt.define == true) {
+        }/* else if (opt.define == true) {
             tempJs = tempJs + opt.newLine + 'define(function(){});' + opt.newLine;
-        }
+        }*/
         if (opt.js) {
             js += tempJs;
         }

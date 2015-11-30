@@ -9,7 +9,7 @@ gulp.task('gulp_css', function () {
 
 gulp.task('gulp_riotjs', function () {
     gulp.src(['./*.html'])
-        .pipe(gulp_css({js: 'js/riot_tag.js'}))
+        .pipe(gulp_css({js: 'js/riot_tag.js',define:'tags/'}))
         .pipe(gulp.dest('./output_js'));
 });
 gulp.task('gulp_modules', function () {
