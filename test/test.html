@@ -1,7 +1,10 @@
 <test>
     <style>
         .__self { display: block }
-        .__self.inline{display: inline-block};
+
+        .__self.inline { display: inline-block }
+
+        ;
         .__root body {
             background: #fff;
         }
@@ -24,6 +27,10 @@
         <div class="content">{content}</div>
         <script>
             this.content = 'This is content;';
+            go()
+            {
+                this.a = 1;
+            }
         </script>
     </div>
 </test>
