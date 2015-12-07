@@ -2,7 +2,13 @@ gulp-riot-css
 =============
 
 ## 版本更新
-* 0.2.5 修改define生成方式，改为tag外部，不包裹riot.tag内容
+### 0.2.7
+* 修复.__root和.__self bug
+### 0.2.6
+* 判断是否存在重复文件，重复时提示错误
+### 0.2.5
+* 修改define生成方式，改为tag外部，不包裹riot.tag内容
+* 空文件时不生成内容
 * 0.2.4 修复错误：多重条件选择时(例如：.__self.cls) 转换时不能增加空格
 * 0.2.3 增加define参数，便于requirejs引用:define值为string或true，为string时，define代表标签前缀，例如define='tag_',则生成define('tag_tagName',function(){});
 * 0.2.2 不指定js文件名时,将按照tag名称输出js文件

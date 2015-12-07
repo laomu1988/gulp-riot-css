@@ -22,6 +22,8 @@ module.exports = function (opt) {
     opt.note = '/**' + (opt.note || ' ----- created by gulp-riot-css -----') + '*/' + opt.newLine;
     var js = opt.note, css = opt.note, backFile = null;
 
+    var tags = {};
+
     function SpliteFile(file, that) {
         var $ = cheerio.load(String(file.contents) + '', {decodeEntities: false});
         var root = $.root();
@@ -30,6 +32,15 @@ module.exports = function (opt) {
         if (children.length > 0) {
             tagName = children[0].name;
         }
+        if (!tagName) {
+            return;
+        }
+        tagName = tagName.trim();
+        if (tags[tagName]) {
+            console.log("重复： ", tagName, file.path, tags[tagName]);
+        }
+        tags[tagName] = file.path;
+
         // console.log('tagName:', tagName);
         var style = $('style');
         var style_addTag = styleAddTag(style.html(), tagName);
@@ -43,9 +54,10 @@ module.exports = function (opt) {
         var tempJs = compile($.html()) + opt.newLine;
         if (typeof opt.define == 'string') {
             tempJs = tempJs + opt.newLine + 'define("' + opt.define + tagName + '",function(){});' + opt.newLine;
-        }/* else if (opt.define == true) {
-            tempJs = tempJs + opt.newLine + 'define(function(){});' + opt.newLine;
-        }*/
+        }
+        /* else if (opt.define == true) {
+         tempJs = tempJs + opt.newLine + 'define(function(){});' + opt.newLine;
+         }*/
         if (opt.js) {
             js += tempJs;
         }
@@ -85,12 +97,12 @@ module.exports = function (opt) {
                     // console.log('selector: ',s);
                     if (s.indexOf('.__self') >= 0) {
                         var temp = s;
-                        s = temp.replace('.__self', attrTag);
-                        s += ',' + temp.replace('.__self', tag);
+                        s = temp.replace(/\.__self/, attrTag);
+                        s += ',' + temp.replace(/\.__self/, tag);
                     }
                     //s = s.trim();
                     if (s.indexOf('.__root') >= 0) {
-                        s = s.replace('.__root', '');
+                        s = s.replace(/\.__root/, '');
                         //s = s.trim();
                         selector += s;
                         continue;
@@ -148,6 +160,9 @@ module.exports = function (opt) {
     function pushFile(name, content, that) {
         if (!that) {
             console.error('未知文件流!');
+        }
+        if (content.trim().length == 0) {
+            return;
         }
         var file = backFile.clone({contents: false});
         file.path = path.join(backFile.base, name);
