@@ -16,10 +16,25 @@ module.exports = function (opt) {
     opt = opt || {};
     opt.js = opt.js || '';
     opt.css = opt.css || '';
+    opt.type = opt.type || 'all';
     opt.define = opt.define || false;// 是否使用define标签包裹js
     opt.tab = opt.tag || '  ';
     opt.newLine = gutil.linefeed;
     opt.note = '/**' + (opt.note || ' ----- created by gulp-riot-css -----') + '*/' + opt.newLine;
+
+    // 输出选择器内容
+    switch (opt.type.toLowerCase()) {
+        case 'tagname':
+            opt.tagName = true;
+            break;
+        case 'attr':
+            opt.attr = true;
+            break;
+        case 'all':
+        default:
+            opt.tagName = true;
+            opt.attr = true;
+    }
     var js = opt.note, css = opt.note, backFile = null;
 
     var tags = {};
@@ -37,7 +52,7 @@ module.exports = function (opt) {
         }
         tagName = tagName.trim();
         if (tags[tagName]) {
-            console.log("重复： ", tagName, file.path, tags[tagName]);
+            console.error("重复： ", tagName, file.path, tags[tagName]);
         }
         tags[tagName] = file.path;
 
@@ -78,10 +93,21 @@ module.exports = function (opt) {
         }
         var attrTag = '[riot-tag=' + tag + ']';
 
+        // 删除注释
+        style = style.replace(/\/\*[\w\W]*?\*\//g, '');
+
+        // 输出到scss、sass或less
         if (!isCss) {
             style = style.replace(/\.__self(?=\W)/g, '&');
             style = style.replace(/\.__root(?=\W)/g, '@at-root');
-            return attrTag + ', ' + tag + ' {\n' + style.trim() + '\n}\n';
+            var scope = '';
+            if (opt.attr) {
+                scope += tag;
+            }
+            if (opt.tagName) {
+                scope += (scope ? ',' : '') + tag;
+            }
+            return scope + ' {\n' + style.trim() + '\n}\n';
         }
 
         style += '';
@@ -93,28 +119,9 @@ module.exports = function (opt) {
             selector = '';
             for (var i = 0; i < selectors.length; i++) {
                 var s = selectors[i].trim();
-                if (s) {
-                    // console.log('selector: ',s);
-                    if (s.indexOf('.__self') >= 0) {
-                        var temp = s;
-                        s = temp.replace(/\.__self/, attrTag);
-                        s += ',' + temp.replace(/\.__self/, tag);
-                    }
-                    //s = s.trim();
-                    if (s.indexOf('.__root') >= 0) {
-                        s = s.replace(/\.__root/, '');
-                        //s = s.trim();
-                        selector += s;
-                        continue;
-                    }
-                    if (s.indexOf(attrTag) == -1) {
-                        selector += (selector ? ', ' : '' ) + attrTag + ' ' + s + ',' + tag + ' ' + s;
-                    } else {
-                        selector += (selector ? ',' : '') + s;
-                    }
-                }
+                selector += (selector ? ', ' : '' ) + replaceSelector(s, tag);
             }
-            selector = selector.replace(/\s+\:/g, ':');
+            selector = selector.replace(/\s+:/g, ':');
             //console.log(selector);
             // 格式化
             style = style.trim();
@@ -123,6 +130,41 @@ module.exports = function (opt) {
         });
         return style.trim();
     }
+
+    /**替换选择器*/
+    function replaceSelector(selector, tag) {
+        var attrTag = '[riot-tag=' + tag + ']';
+        var temp = selector;
+        if (selector.indexOf('.__self') >= 0) {
+            selector = '';
+            if (opt.attr) {
+                selector = temp.replace(/\.__self/, attrTag);
+            }
+            if (opt.tagName) {
+                selector += (selector ? ',' : '') + temp.replace(/\.__self/, tag);
+            }
+        }
+        //s = s.trim();
+        if (selector.indexOf('.__root') >= 0) {
+            selector = selector.replace(/\.__root/, '');
+            return selector;
+        }
+        // 假如自身不带有限定范围词(.__self)，则增加限定
+        if (selector.indexOf(attrTag) == -1 && temp.indexOf('.__self') == -1) {
+            temp = selector;
+            selector = '';
+            if (opt.attr) {
+                selector = attrTag + ' ' + selector;
+            }
+            if (opt.tagName) {
+                selector += (selector ? ',' : '') + tag + ' ' + selector;
+            }
+            return selector;
+        } else {
+            return selector;
+        }
+    }
+
 
     function bufferContents(file, enc, cb) {
         // 空文件直接跳转

@@ -1,7 +1,17 @@
 gulp-riot-css
 =============
+## 项目起因
+    riot模板中css样式会被直接添加到head中,容易造成污染，我们可以在写css时添加自定义的范围限定类，但是这样会有大量重复输入.
+    gulp-riot-css是把css样式用属性选择器[riot-tag=tagName]或标签选择器tagName包裹，输出时直接限定范围，无需多余输出.
+
+## todo
+* 引入外部css
+* 拆分css和js分别到不同的文件夹
 
 ## 版本更新
+### 0.2.8
+* 删除注释
+* 减少体积，根据参数只使用一种选择器样式
 ### 0.2.7
 * 修复.__root和.__self bug
 ### 0.2.6
@@ -21,11 +31,7 @@ gulp-riot-css
 * 0.1.6 修复部分错误
 * 0.1.5 根据css扩展名(sass,scss,less) 直接将style用标签包裹,便于之后sass或less编译
 
-## 项目起因
-    riot模板中css样式会被直接添加到head中,容易造成污染.
-    解决方式非常简单,riot渲染模板后,会在渲染盒子上增加属性riot-tag
-    所以我们只要把css样式放在[riot-tag=tagName]中即可.
-    假如直接使用<tagName><tagName>则不存在[riot-tag=tagName],所以还需要将节点包裹在tagName中.
+
 
 ## 项目说明
 * 拆分riot中sytle标签,包裹在[riot-tag=**]标签中输出
@@ -57,7 +63,9 @@ gulp.task('default', ["riot_css"]);
 * js string 'riot_tag.js' 指定生成的js存放位置及文件名
 * css string '' 指定生成的css存放位置及文件名,扩展名为scss或sass或less时,直接将style包裹在属性标签内部,
                 当为空时,则不单独生成style,直接将style包含在tag模板内
-* define boolean 是否使用define标签包裹，便于requirejs引用
+* type string 'all' 指定输出css限定范围使用属性选择器还是标签选择器。'all'同时输出两种模式,'attr'输出属性选择器,'tagName'输出标签选择器
+* define boolean false 是否使用define标签包裹，便于requirejs引用
+
 ## 示例
 ```html
 <test>

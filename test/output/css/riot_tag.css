@@ -1,9 +1,9 @@
 /** ----- created by gulp-riot-css -----*/
-[riot-tag=test],test
+[riot-tag=test]
 {
   display: block
 }
-[riot-tag=test].inline,test.inline
+[riot-tag=test].inline
 {
   display: inline-block
 }
@@ -11,24 +11,24 @@
 {
   background: #fff;
 }
-[riot-tag=test]:hover h1,test:hover h1
+[riot-tag=test]:hover h1
 {
   display: block;
 }
-[riot-tag=test] h1,test h1
+[riot-tag=test] 
 {
   color: green;
 }
-[riot-tag=test] .content,test .content
+[riot-tag=test] 
 {
   color: blue;
 }
-[riot-tag=test2] h1,test2 h1
+[riot-tag=test2] 
 {
   color: blue;
   background: yellow;
 }
-[riot-tag=test2] .content,test2 .content
+[riot-tag=test2] 
 {
   color: green;
   background: steelblue;
