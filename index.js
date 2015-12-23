@@ -102,7 +102,7 @@ module.exports = function (opt) {
             style = style.replace(/\.__root(?=\W)/g, '@at-root');
             var scope = '';
             if (opt.attr) {
-                scope += tag;
+                scope += attrTag;
             }
             if (opt.tagName) {
                 scope += (scope ? ',' : '') + tag;

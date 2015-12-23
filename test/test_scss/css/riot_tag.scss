@@ -1,0 +1,36 @@
+/** ----- created by gulp-riot-css -----*/
+[riot-tag=test] {
+& { display: block }
+
+        &.inline { display: inline-block }
+
+        @at-root body {
+            background: #fff;
+        }
+
+        
+        &:hover h1 {
+            display: block;
+        }
+
+        h1 {
+            color: green;
+        }
+
+        .content {
+            color: blue;
+        }
+}
+
+[riot-tag=test2] {
+h1 {
+            color: blue;
+            background: yellow;
+        }
+
+        .content {
+            color: green;
+            background: steelblue;
+        }
+}
+
