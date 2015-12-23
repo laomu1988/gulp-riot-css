@@ -15,20 +15,20 @@
 {
   display: block;
 }
-[riot-tag=test] 
+[riot-tag=test] h1
 {
   color: green;
 }
-[riot-tag=test] 
+[riot-tag=test] .content
 {
   color: blue;
 }
-[riot-tag=test2] 
+[riot-tag=test2] h1
 {
   color: blue;
   background: yellow;
 }
-[riot-tag=test2] 
+[riot-tag=test2] .content
 {
   color: green;
   background: steelblue;

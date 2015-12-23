@@ -154,10 +154,10 @@ module.exports = function (opt) {
             temp = selector;
             selector = '';
             if (opt.attr) {
-                selector = attrTag + ' ' + selector;
+                selector = attrTag + ' ' + temp;
             }
             if (opt.tagName) {
-                selector += (selector ? ',' : '') + tag + ' ' + selector;
+                selector += (selector ? ',' : '') + tag + ' ' + temp;
             }
             return selector;
         } else {

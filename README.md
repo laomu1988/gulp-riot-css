@@ -2,13 +2,15 @@ gulp-riot-css
 =============
 ## 项目起因
     riot模板中css样式会被直接添加到head中,容易造成污染，我们可以在写css时添加自定义的范围限定类，但是这样会有大量重复输入.
-    gulp-riot-css是把css样式用属性选择器[riot-tag=tagName]或标签选择器tagName包裹，输出时直接限定范围，无需多余输出.
+    gulp-riot-css是把css样式用属性选择器[riot-tag=tagName]或标签选择器tagName包裹，输出时直接限定范围，无需重复输入.
 
 ## todo
 * 引入外部css
 * 拆分css和js分别到不同的文件夹
 
 ## 版本更新
+### 0.2.9
+* 修复范围限定词bug
 ### 0.2.8
 * 删除注释
 * 减少体积，根据参数只使用一种选择器样式
