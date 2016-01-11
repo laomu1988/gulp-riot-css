@@ -206,6 +206,7 @@ module.exports = function (opt) {
         if (content.trim().length == 0) {
             return;
         }
+        // console.log(that);
         var file = backFile.clone({contents: false});
         file.path = path.join(backFile.base, name);
         file.contents = new Buffer(content);
