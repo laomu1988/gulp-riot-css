@@ -20,6 +20,14 @@
         .content {
             color: blue;
         }
+
+        @media screen and(max-width: 600px) {
+            .h1 { color: red; }
+
+            .h1 { color: red; }
+
+            .h1 { color: red; }
+        }
 }
 
 [riot-tag=test2] {

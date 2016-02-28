@@ -58,13 +58,20 @@ module.exports = function (opt) {
 
         // console.log('tagName:', tagName);
         var style = $('style');
-        var style_addTag = styleAddTag(style.html(), tagName);
+        var style_html = style.html();
+        // console.log('todo: style标签通过src引入外部文件');
+        if (style.attr('src')) {
+            // style标签通过src引入外部文件
+        } else {
+            style_html = styleAddTag(style.html(), tagName);
+        }
+
         if (opt.css) {
-            css += styleAddTag(style.html(), tagName) + opt.newLine;
+            css += style_html + opt.newLine;
             style.remove();
         }
         else {
-            style.html(style_addTag);
+            style.html(style_html);
         }
         var tempJs = compile($.html()) + opt.newLine;
         if (typeof opt.define == 'string') {
@@ -113,22 +120,34 @@ module.exports = function (opt) {
         style += '';
         style = style.trim();
         // 匹配选择器
-        style = style.replace(/([^\{]*)\{([^\}]*)\}*/g, function (a, selector, style, d) {
-            selector = selector.replace(';', '');
-            var selectors = selector.split(',');
-            selector = '';
-            for (var i = 0; i < selectors.length; i++) {
-                var s = selectors[i].trim();
-                selector += (selector ? ', ' : '' ) + replaceSelector(s, tag);
+        style = style.replace(/([^\{\}]*)\{/g, function (a, selector) {
+            if (selector) {
+                if (selector.indexOf('@media') >= 0) {
+                    return '\n' + a.trim();
+                }
+                selector = selector.replace(';', '');
+                var selectors = selector.split(',');
+                selector = '';
+                for (var i = 0; i < selectors.length; i++) {
+                    var s = selectors[i].trim();
+                    selector += (selector ? ', ' : '' ) + replaceSelector(s, tag);
+                }
+                selector = selector.replace(/\s+:/g, ':');
+                return '\n' + selector + '\n{\n';
             }
-            selector = selector.replace(/\s+:/g, ':');
-            //console.log(selector);
-            // 格式化
-            style = style.trim();
-            style = style.replace(/[\r\n]+\s*/g, '\n' + opt.tab);
-            return selector + '\n{\n' + opt.tab + style.trim() + '\n}\n';
         });
+        style = beautify(style);
         return style.trim();
+    }
+
+    // 美化样式格式
+    function beautify(style) {
+        return style.replace(/[\{\n\s\};]+/g, function (str) {
+            if (str.indexOf('}') >= 0) {
+                return str.trim().replace(/\s+/g, '') + '\n';
+            }
+            return str.trim() + ' ';
+        });
     }
 
     /**替换选择器*/

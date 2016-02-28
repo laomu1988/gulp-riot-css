@@ -1,35 +1,12 @@
 /** ----- created by gulp-riot-css -----*/
-[riot-tag=test]
-{
-  display: block
-}
-[riot-tag=test].inline
-{
-  display: inline-block
-}
- body
-{
-  background: #fff;
-}
-[riot-tag=test]:hover h1
-{
-  display: block;
-}
-[riot-tag=test] h1
-{
-  color: green;
-}
-[riot-tag=test] .content
-{
-  color: blue;
-}
-[riot-tag=test2] h1
-{
-  color: blue;
-  background: yellow;
-}
-[riot-tag=test2] .content
-{
-  color: green;
-  background: steelblue;
-}
+[riot-tag=test]{ display: block}
+[riot-tag=test].inline{ display: inline-block}
+body{ background: #fff;}
+[riot-tag=test]:hover h1{ display: block;}
+[riot-tag=test] h1{ color: green;}
+[riot-tag=test] .content{ color: blue;}
+@media screen and(max-width: 600px){ [riot-tag=test] .h1{ color: red;}
+[riot-tag=test] .h1{ color: red;}
+[riot-tag=test] .h1{ color: red;}}
+[riot-tag=test2] h1{ color: blue; background: yellow;}
+[riot-tag=test2] .content{ color: green; background: steelblue;}
