@@ -7,6 +7,7 @@ var PluginError = gutil.PluginError;
 var File = gutil.File;
 var cheerio = require('cheerio');
 var compile = require('riot').compile;
+var fs = require('fs');
 
 /**分两步进行,1.拆分,2.编译
  * 1.拆分: cheerio获取style; 获取外围节点名称
@@ -61,7 +62,11 @@ module.exports = function (opt) {
         var style_html = style.html();
         // console.log('todo: style标签通过src引入外部文件');
         if (style.attr('src')) {
-            // style标签通过src引入外部文件
+            var source = path.join(backFile.base, style.attr('src'));
+            style_html = fs.readFileSync(source, 'utf8') + '';
+            if (style.attr('addtag')) {
+                style_html = styleAddTag(style_html, tagName);
+            }
         } else {
             style_html = styleAddTag(style.html(), tagName);
         }

@@ -10,3 +10,4 @@ body{ background: #fff;}
 [riot-tag=test] .h1{ color: red;}}
 [riot-tag=test2] h1{ color: blue; background: yellow;}
 [riot-tag=test2] .content{ color: green; background: steelblue;}
+[riot-tag=test3] .h1{ color: red;}

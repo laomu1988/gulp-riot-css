@@ -15,3 +15,9 @@ riot.tag('test2', '<h1>This is a test file</h1> <div class="content">{content}</
 });
 
 define("tags/test2",function(){});
+riot.tag('test3', ' <h1>This is a test file</h1> <div class="content">{content}</div>', 'test3 .h1{ color: red;}', function(opts) {
+        this.content = 'This is content;';
+    
+});
+
+define("tags/test3",function(){});

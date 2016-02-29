@@ -1,15 +1,18 @@
 gulp-riot-css
 =============
 ## 项目起因
-    riot模板中css样式会被直接添加到head中,容易造成污染，我们可以在写css时添加自定义的范围限定类，但是这样会有大量重复输入.
-    gulp-riot-css是把css样式用属性选择器[riot-tag=tagName]或标签选择器tagName包裹，输出时直接限定范围，无需重复输入.
-
+    riot模板中css样式会被直接添加到head中,容易造成污染，比如说两个模块中都有h1标签，那么同时使用这两个模块的话就会相互影响。
+    解决方法：
+        给模块内样式选择器添加范围限定，比如说，属性选择器[riot-tag=tagName]或者标签选择器tagName。
+        使用gulp-riot-css可以自动给riot模块内css样式选择器添加范围限定。
+        并且可以将外部的css引入到模块内，单独加载模块时无需另外加载样式文件
 
 ## 项目说明
-* 拆分riot中sytle标签,包裹在[riot-tag=**]标签中输出
+* 拆分riot中sytle标签,包裹在属性选择器[riot-tag=**]或者标签选择器中输出
+* 可以生成单独的css和js，也可以只生成js文件（css样式部分在js内部），还可以引入外部的css
 * 分别生成单独的scs和js文件,可以分别定义输出文件目录
 * ie7已经支持属性选择器,riot使用h5和es5插件可以兼容到ie8
-* 该方式适用与某一模块的单独样式,对通用样式,建议写在其他单独的文件中
+* 该方式适用与某一模块的单独样式,对通用样式,建议不要写在模块内
 
 ## 使用方式
 首先你需要安装gulp-riot-css和gulp
@@ -30,12 +33,22 @@ gulp.task('default', ["riot_css"]);
 ```
 
 ## 参数说明
+* gulp调用时参数
 参数  |   类型   |  默认值  | 说明
 ------|----------|----------|------
 js    | string   | 'riot_tag.js' |  指定生成的js存放位置及文件名
 css   | string   |  ''       |  指定生成的css存放位置及文件名,扩展名为scss或sass或less时,直接将style包裹在属性标签内部,当为空时,则不单独生成style,直接将style包含在tag模板内
 type  | string   |  'all'    | 指定输出css限定范围使用属性选择器还是标签选择器。'all'同时输出两种模式,'attr'输出属性选择器,'tagName'输出标签选择器
 define| boolean  | false    |是否使用define标签包裹，便于requirejs引用
+
+* 模块内引入外部css
+> 在模块内增加style节点<style src="test.css" addtag="true"></style>,将会自动引入test.css文件并增加样式范围限定。参考test/test3.html
+参数 |  说明
+------------
+src  |  引入的css文件位置
+addtag | css中样式选择器是否增加范围限定
+
+
 
 ## 示例（参考test目录下文件）
 ```html
@@ -76,11 +89,9 @@ riot.tag('test', '<h1>This is a test file</h1> <div class="content">{content}</d
 });
 ```
 
-## todo
-* 引入外部css
-* 拆分css和js分别到不同的文件夹
-
 ## 版本更新
+### 0.3.1
+* 引入外部css文件
 ### 0.3.0
 * 修复@media媒体选择器bug
 ### 0.2.9
