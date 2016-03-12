@@ -1,11 +1,12 @@
 gulp-riot-css
 =============
 ## 项目起因
-    riot模板中css样式会被直接添加到head中,容易造成污染，比如说两个模块中都有h1标签，那么同时使用这两个模块的话就会相互影响。
-    解决方法：
-        给模块内样式选择器添加范围限定，比如说，属性选择器[riot-tag=tagName]或者标签选择器tagName。
-        使用gulp-riot-css可以自动给riot模块内css样式选择器添加范围限定。
-        并且可以将外部的css引入到模块内，单独加载模块时无需另外加载样式文件
+riot模板中css样式会被直接添加到head中,容易造成污染，比如说两个模块中都有h1标签，那么同时使用这两个模块的话就会相互影响。
+解决方法：
+    给模块内样式选择器添加范围限定，比如说，属性选择器[riot-tag=tagName]或者标签选择器tagName。
+    使用gulp-riot-css可以自动给riot模块内css样式选择器添加范围限定。
+    并且可以将外部的css引入到模块内，单独加载模块时无需另外加载样式文件
+
 
 ## 项目说明
 * 拆分riot中sytle标签,包裹在属性选择器[riot-tag=**]或者标签选择器中输出
@@ -16,8 +17,8 @@ gulp-riot-css
 
 ## 使用方式
 首先你需要安装gulp-riot-css和gulp
-    npm install -d gulp-riot-css
-    npm install -d gulp
+npm install -d gulp-riot-css
+npm install -d gulp
 
 ```javascript
 var gulp = require('gulp');
@@ -89,23 +90,18 @@ riot.tag('test', '<h1>This is a test file</h1> <div class="content">{content}</d
 });
 ```
 
+
+## todo
+* 修改引入的图片文件路径
+
 ## 版本更新
-### 0.3.1
-* 引入外部css文件
-### 0.3.0
-* 修复@media媒体选择器bug
-### 0.2.9
-* 修复范围限定词bug
-### 0.2.8
-* 删除注释
-* 减少体积，根据参数只使用一种选择器样式
-### 0.2.7
-* 修复.__root和.__self bug
-### 0.2.6
-* 判断是否存在重复文件，重复时提示错误
-### 0.2.5
-* 修改define生成方式，改为tag外部，不包裹riot.tag内容
-* 空文件时不生成内容
+* 0.3.1 引入外部css文件
+* 0.3.0 修复@media媒体选择器bug
+* 0.2.9 修复范围限定词bug
+* 0.2.8 删除注释;减少体积，根据参数只使用一种选择器样式
+* 0.2.7 修复.__root和.__self bug
+* 0.2.6 判断是否存在重复文件，重复时提示错误
+* 0.2.5 修改define生成方式，改为tag外部，不包裹riot.tag内容;空文件时不生成内容
 * 0.2.4 修复错误：多重条件选择时(例如：.__self.cls) 转换时不能增加空格
 * 0.2.3 增加define参数，便于requirejs引用:define值为string或true，为string时，define代表标签前缀，例如define='tag_',则生成define('tag_tagName',function(){});
 * 0.2.2 不指定js文件名时,将按照tag名称输出js文件

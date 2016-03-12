@@ -1,6 +1,6 @@
 {
   "name": "gulp-riot-css",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "将riot模板中css样式使用范围限定词包裹并输出",
   "main": "index.js",
   "dependencies": {
