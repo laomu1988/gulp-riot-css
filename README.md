@@ -33,17 +33,17 @@ gulp.task('riot_css', function () {
 gulp.task('default', ["riot_css"]);
 ```
 
-## 参数说明
-* gulp调用时参数
-参数  |   类型   |  默认值  | 说明
-------|----------|----------|------
-js    | string   | 'riot_tag.js' |  指定生成的js存放位置及文件名
-css   | string   |  ''       |  指定生成的css存放位置及文件名,扩展名为scss或sass或less时,直接将style包裹在属性标签内部,当为空时,则不单独生成style,直接将style包含在tag模板内
-type  | string   |  'all'    | 指定输出css限定范围使用属性选择器还是标签选择器。'all'同时输出两种模式,'attr'输出属性选择器,'tagName'输出标签选择器
-define| boolean  | false    |是否使用define标签包裹，便于requirejs引用
+## gulp调用时参数说明
 
-* 模块内引入外部css
-> 在模块内增加style节点<style src="test.css" addtag="true"></style>,将会自动引入test.css文件并增加样式范围限定。参考test/test3.html
+| 参数  |   类型   |  默认值  | 说明 |
+|-------|----------|----------|------|
+| js    | string   | 'riot_tag.js' |  指定生成的js存放位置及文件名|
+| css   | string   |  ''       |  指定生成的css存放位置及文件名<br>扩展名为scss或sass或less时,直接将style包裹在属性标签内部;<br>当为空时,则不单独生成style,直接将style包含在tag模板内 |
+| type  | string   |  'all'    | 指定输出css限定范围使用属性选择器还是标签选择器。<br>'all'同时输出两种模式,<br>'attr'输出属性选择器,<br>'tagName'输出标签选择器 |
+| define| boolean  | false    |是否使用define标签包裹，便于requirejs引用 |
+
+## 模块内引入外部css
+   在模块内增加style节点<style src="test.css" addtag="true"></style>,将会自动引入test.css文件并增加样式范围限定。参考test/test3.html
 
 |  参数  |  说明  |
 |-------|-----------
