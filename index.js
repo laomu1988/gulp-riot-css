@@ -62,7 +62,7 @@ module.exports = function (opt) {
         var style_html = style.html();
         // console.log('todo: style标签通过src引入外部文件');
         if (style.attr('src')) {
-            var source = path.join(backFile.base, style.attr('src'));
+            var source = path.join(path.dirname(file.path), style.attr('src'));
             style_html = fs.readFileSync(source, 'utf8') + '';
             if (style.attr('addtag')) {
                 style_html = styleAddTag(style_html, tagName);

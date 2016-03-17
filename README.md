@@ -44,10 +44,11 @@ define| boolean  | false    |是否使用define标签包裹，便于requirejs引
 
 * 模块内引入外部css
 > 在模块内增加style节点<style src="test.css" addtag="true"></style>,将会自动引入test.css文件并增加样式范围限定。参考test/test3.html
-参数 |  说明
-------------
-src  |  引入的css文件位置
-addtag | css中样式选择器是否增加范围限定
+
+|  参数  |  说明  |
+|-------|-----------
+| src   |  引入的css文件位置  |
+| addtag | css中样式选择器是否增加范围限定  |
 
 
 
@@ -95,6 +96,7 @@ riot.tag('test', '<h1>This is a test file</h1> <div class="content">{content}</d
 * 修改引入的图片文件路径
 
 ## 版本更新
+* 0.3.2 修复引入文件bug
 * 0.3.1 引入外部css文件
 * 0.3.0 修复@media媒体选择器bug
 * 0.2.9 修复范围限定词bug

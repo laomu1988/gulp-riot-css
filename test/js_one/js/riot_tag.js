@@ -9,7 +9,7 @@ riot.tag('test', '<div> <h1>This is a test file</h1> <div class="content">{conte
 });
 
 define("tags/test",function(){});
-riot.tag('test2', '<h1>This is a test file</h1> <div class="content">{content}</div>', 'test2 h1{ color: blue; background: yellow;} test2 .content{ color: green; background: steelblue;}', function(opts) {
+riot.tag('test2', '<h1>This is a test file</h1> <div class="content">{content}</div>', 'test2 h1{ color: blue; background: yellow; background: url(\'a.jpg\') no-repeat;} test2 .content{ color: green; background: steelblue;}', function(opts) {
         this.content = 'This is content;';
     
 });

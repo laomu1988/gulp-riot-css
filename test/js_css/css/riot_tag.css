@@ -8,6 +8,6 @@ body{ background: #fff;}
 @media screen and(max-width: 600px){ [riot-tag=test] .h1{ color: red;}
 [riot-tag=test] .h1{ color: red;}
 [riot-tag=test] .h1{ color: red;}}
-[riot-tag=test2] h1{ color: blue; background: yellow;}
+[riot-tag=test2] h1{ color: blue; background: yellow; background: url('a.jpg') no-repeat;}
 [riot-tag=test2] .content{ color: green; background: steelblue;}
 [riot-tag=test3] .h1{ color: red;}
